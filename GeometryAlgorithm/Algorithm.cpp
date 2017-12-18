@@ -2,7 +2,7 @@
 #include <math.h>
 
 
-Algorithm::Algorithm()
+Algorithm::Algorithm()//≤‚ ‘
 {
 }
 
