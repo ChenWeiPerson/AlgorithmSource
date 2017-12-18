@@ -137,6 +137,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Algorithm.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_geometryalgorithm.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
@@ -199,6 +200,7 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Algorithm.h" />
     <ClInclude Include="GeneratedFiles\ui_geometryalgorithm.h" />
   </ItemGroup>
   <ItemGroup>
