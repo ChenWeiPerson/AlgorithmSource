@@ -50,7 +50,6 @@ struct Line2d
 Line2d PointToLine(Vector2D p1, Vector2D p2);
 //求直线交点
 bool LineAcrossPoint(Vector2D * p, Line2d line1, Line2d line2 );
-bool LineAcrossPoint(Vector2D * p, Vector2D line1, Vector2D line2);
 //求直线平行
 bool LineParallel(Line2d line1,Line2d line2 );
 bool LineParallel(Vector2D line1, Vector2D line2);
@@ -58,5 +57,15 @@ bool LineParallel(Vector2D line1, Vector2D line2);
 bool LineVertical(Line2d line1,Line2d line2 );
 bool LineVertical(Vector2D line1, Vector2D line2);
 
+//************************************
+// Method:    点到直线距离
+// FullName:  DistancePointToLine
+// Access:    public 
+// Returns:   float
+// Qualifier:
+// Parameter: Vector2D p
+// Parameter: Line2d line
+//************************************
+float DistancePointToLine(Vector2D p, Line2d line );
 #endif // Algorithm_h__
 

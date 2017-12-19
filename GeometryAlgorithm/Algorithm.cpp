@@ -34,17 +34,10 @@ bool LineAcrossPoint(Vector2D * p, Line2d line1, Line2d line2)
 	}
 
 	float  d = line1.A / line2.A;
-	line1.B + line2.B * -d + line1.C + line2.C * -d;
 	float y =  (line1.C - line2.C*d) / (line1.B - d *line2.B);
 	float x = -(y * line1.B + line1.C) / line1.A;
 	p->x = x;
 	p->y = y;
-	return true;
-}
-
-bool LineAcrossPoint(Vector2D * p, Vector2D line1, Vector2D line2)
-{
-
 	return true;
 }
 
@@ -84,4 +77,9 @@ bool LineVertical(Vector2D line1, Vector2D line2)
 	Vector2D l2 = line1.normalize();
 
 	return fabs(l1.x*l2.x + l1.y* l2.y) < 1e-6;
+}
+
+float DistancePointToLine(Vector2D p, Line2d line)
+{
+	return fabs(line.A * p.x + line.B * p.y + line.C) / sqrt(line.A* line.A + line.B * line.B);
 }
