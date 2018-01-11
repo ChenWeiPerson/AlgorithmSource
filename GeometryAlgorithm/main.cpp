@@ -5,6 +5,7 @@
 int main(int argc, char *argv[])
 {
 	QApplication a(argc, argv);
+	using namespace Algorithm;
 	Line2d line1 = PointToLine(Vector2D(0,0), Vector2D(3,2));
 	Line2d line2 = PointToLine(Vector2D(6, 9), Vector2D(34, 90));
 	Vector2D acoss;

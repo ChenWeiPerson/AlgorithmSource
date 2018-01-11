@@ -2,70 +2,154 @@
 #define Algorithm_h__
 #include <math.h>
 
-class Algorithm
+namespace Algorithm
 {
-public:
-	Algorithm();
-	~Algorithm();
-};
-
-typedef float Type;
-
-
-struct Vector2D
-{
-	Vector2D()
-		:x(0), y(0)
-	{}
-	Vector2D(Type a1, Type a2)
-		:x(a1), y(a2)
-	{}
-	Type x;
-	Type y;
-	double length()
+	typedef float AlgorithmType;
+	struct Vector2D
 	{
-		return sqrt( x* x + y * y);
-	}
-	Vector2D normalize() 
+		Vector2D()
+			:x(0), y(0)
+		{}
+		Vector2D(AlgorithmType a1, AlgorithmType a2)
+			:x(a1), y(a2)
+		{}
+		AlgorithmType x;
+		AlgorithmType y;
+		AlgorithmType length()
+		{
+			return sqrt( x* x + y * y);
+		}
+		Vector2D normalize() 
+		{
+			AlgorithmType l = length();
+			return Vector2D(x / l, y / l);
+		}
+	};
+
+
+	struct Line2d
 	{
-		double l = length();
-		return Vector2D(x / l, y / l);
-	}
+		Line2d()
+			:A(0),B(0),C(0)
+		{}
+		AlgorithmType A;
+		AlgorithmType B;
+		AlgorithmType C;
+		typedef AlgorithmType NumberType;
+		//Ax+By+C = 0;
+	};
+
+
+	//************************************
+	// Method:    两点转换为直线
+	// FullName:  PointToLine
+	// Access:    public 
+	// Returns:   Line2d
+	// Qualifier:
+	// Parameter: Vector2D p1
+	// Parameter: Vector2D p2
+	//************************************
+	Line2d PointToLine(Vector2D p1, Vector2D p2);
+
+
+	//************************************
+	// Method:    直线交点
+	// FullName:  LineAcrossPoint
+	// Access:    public 
+	// Returns:   bool
+	// Qualifier:
+	// Parameter: Vector2D * p
+	// Parameter: Line2d line1
+	// Parameter: Line2d line2
+	//************************************
+
+	bool LineAcrossPoint(Vector2D * p, Line2d line1, Line2d line2 );
+
+	//************************************
+	// Method:    直线平行
+	// FullName:  LineParallel
+	// Access:    public 
+	// Returns:   bool
+	// Qualifier:
+	// Parameter: Line2d line1
+	// Parameter: Line2d line2
+	//************************************
+
+	bool LineParallel(Line2d line1,Line2d line2 );
+	bool LineParallel(Vector2D line1, Vector2D line2);
+
+	//************************************
+	// Method:    直线垂直
+	// FullName:  LineVertical
+	// Access:    public 
+	// Returns:   bool
+	// Qualifier:
+	// Parameter: Line2d line1
+	// Parameter: Line2d line2
+	//************************************
+	bool LineVertical(Line2d line1,Line2d line2 );
+	bool LineVertical(Vector2D line1, Vector2D line2);
+
+	//************************************
+	// Method:    点到直线距离
+	// FullName:  DistancePointToLine
+	// Access:    public 
+	// Returns:   AlgorithmType
+	// Qualifier:
+	// Parameter: Vector2D p
+	// Parameter: Line2d line
+	//************************************
+	AlgorithmType DistancePointToLine(Vector2D p, Line2d line );
+
+	//************************************
+	// Method:    点是是否在直线上
+	// FullName:  PointOnLine
+	// Access:    public 
+	// Returns:   bool
+	// Qualifier:
+	// Parameter: Vector2D p
+	// Parameter: Line2d line
+	//************************************
+	bool PointOnLine(Vector2D p, Line2d line );
+
+	//************************************
+	// Method:    点是否在线段上
+	// FullName:  PointOnSegment
+	// Access:    public 
+	// Returns:   bool 是否在线段上
+	// Qualifier:
+	// Parameter: 判断点 p
+	// Parameter: 线段起点 Vector2D p1
+	// Parameter: 线段终点 Vector2D p2
+	//************************************
+	bool PointOnSegment(Vector2D p, Vector2D p1, Vector2D p2 );
+
+	//************************************
+	// Method:    两点之间的距离
+	// FullName:  PointDistance
+	// Access:    public 
+	// Returns:   AlgorithmType 距离
+	// Qualifier:
+	// Parameter: Vector2D p1
+	// Parameter: Vector2D p2
+	//************************************
+
+	AlgorithmType PointDistance(Vector2D p1, Vector2D p2);
+
+	//************************************
+	// Method:    线段交点
+	// FullName:  SegmentAcrossPoint
+	// Access:    public 
+	// Returns:   bool 是否有交点
+	// Qualifier:
+	// Parameter: Vector2D p1
+	// Parameter: Vector2D p2
+	// Parameter: Vector2D q1
+	// Parameter: Vector2D q2
+	// Parameter: Vector2D * across 交点
+	//************************************
+	bool SegmentAcrossPoint(Vector2D p1, Vector2D p2, Vector2D q1, Vector2D q2, Vector2D * across = NULL );
+
 };
-
-
-struct Line2d
-{
-	Line2d()
-		:A(0),B(0),C(0)
-	{}
-	Type A;
-	Type B;
-	Type C;
-	typedef Type NumberType;
-	//Ax+By+C = 0;
-};
-
-//直线到点
-Line2d PointToLine(Vector2D p1, Vector2D p2);
-//求直线交点
-bool LineAcrossPoint(Vector2D * p, Line2d line1, Line2d line2 );
-//求直线平行
-bool LineParallel(Line2d line1,Line2d line2 );
-bool LineParallel(Vector2D line1, Vector2D line2);
-//求直线垂直
-bool LineVertical(Line2d line1,Line2d line2 );
-bool LineVertical(Vector2D line1, Vector2D line2);
-
-//************************************
-// Method:    点到直线距离
-// FullName:  DistancePointToLine
-// Access:    public 
-// Returns:   float
-// Qualifier:
-// Parameter: Vector2D p
-// Parameter: Line2d line
-//************************************
-float DistancePointToLine(Vector2D p, Line2d line );
 #endif // Algorithm_h__
 
