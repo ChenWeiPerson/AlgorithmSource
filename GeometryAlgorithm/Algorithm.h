@@ -4,6 +4,9 @@
 
 namespace Algorithm
 {
+	#define  AlgorithmMin(a,b) (a<b?a:b)
+	#define  AlgorithmMax(a,b) (a>b?a:b)
+
 	typedef float AlgorithmType;
 	struct Vector2D
 	{
@@ -39,7 +42,67 @@ namespace Algorithm
 		//Ax+By+C = 0;
 	};
 
+	struct Rect2d
+	{
+		Rect2d()
+		{
 
+		}
+
+		Rect2d(Vector2D min, Vector2D max)
+		{
+			this->min = min;
+			this->max = max;
+		}
+
+		bool includePoint(Vector2D p)
+		{
+			return (p.x >= min.x && p.x <= max.x) && (p.y >= min.y && p.y <= max.y);
+		}
+
+		void mergePoint(Vector2D p)
+		{
+			min.x = AlgorithmMin(p.x, min.x);
+			min.y = AlgorithmMin(p.y, min.y);
+			max.x = AlgorithmMax(p.x, max.x);
+			max.y = AlgorithmMax(p.y, max.y);
+		}
+
+		Vector2D leftBottom()
+		{
+			return min;
+		}
+		Vector2D rightBottom()
+		{
+			return Vector2D(max.x,min.y);
+		}
+
+		Vector2D leftTop()
+		{
+			return Vector2D(min.x, max.y);
+		}
+
+		Vector2D rightTop()
+		{
+			return max;
+		}
+
+		bool include(Rect2d r)
+		{
+			return includePoint(r.leftBottom()) && includePoint(r.rightBottom()) && 
+				includePoint(r.leftTop()) && includePoint(r.rightTop());
+		}
+
+		bool intersect(Rect2d r)
+		{
+			return includePoint(r.leftBottom()) || includePoint(r.rightBottom()) ||
+				includePoint(r.leftTop()) || includePoint(r.rightTop()) ||
+				 r.includePoint(leftBottom()) || r.includePoint(rightBottom()) ||
+				 r.includePoint(leftTop()) || r.includePoint(rightTop());
+		}
+		Vector2D min;
+		Vector2D max;
+	};
 	//************************************
 	// Method:    两点转换为直线
 	// FullName:  PointToLine
@@ -150,6 +213,31 @@ namespace Algorithm
 	//************************************
 	bool SegmentAcrossPoint(Vector2D p1, Vector2D p2, Vector2D q1, Vector2D q2, Vector2D * across = NULL );
 
+	
+	//************************************
+	// Method:    两点到矩形
+	// FullName:  Algorithm::PointToRect
+	// Access:    public 
+	// Returns:   Algorithm::Rect2d
+	// Qualifier:
+	// Parameter: Vector2D p1
+	// Parameter: Vector2D p2
+	//************************************
+	Rect2d PointToRect(Vector2D p1, Vector2D p2);
+
+
+	//************************************
+	// Method:    线段相交，元素数量为4
+	// FullName:  Algorithm::SegmentAcrossPoint
+	// Access:    public 
+	// Returns:   bool
+	// Qualifier:
+	// Parameter: AlgorithmType * x1
+	// Parameter: AlgorithmType * y1
+	//************************************
+	bool SegmentAcrossPoint(AlgorithmType * x, AlgorithmType * y);
+	
+	bool intersect(AlgorithmType * x, AlgorithmType * y);
 };
 #endif // Algorithm_h__
 
