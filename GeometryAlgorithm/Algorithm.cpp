@@ -208,6 +208,11 @@ namespace Algorithm
 		AlgorithmType x2 = x[1];
 		AlgorithmType y2 = y[1];
 
+		AlgorithmType minx1 = AlgorithmMin(x1, x2);
+		AlgorithmType miny1 = AlgorithmMin(y1, y2);
+
+		AlgorithmType maxx1 = AlgorithmMax(x1, x2);
+		AlgorithmType maxy1 = AlgorithmMax(y1, y2);
 
 
 		AlgorithmType x3 = x[2];//s2
@@ -217,11 +222,11 @@ namespace Algorithm
 		AlgorithmType y4 = y[3];
 
 
-		AlgorithmType minx1 = AlgorithmMax(x1, x2);
-		AlgorithmType miny1 = AlgorithmMax(y1, y2);
+		AlgorithmType minx2 = AlgorithmMin(x3, x4);
+		AlgorithmType miny2 = AlgorithmMin(y3, y4);
 
-		AlgorithmType minx2 = AlgorithmMax(x3, x4);
-		AlgorithmType miny2 = AlgorithmMax(y3, y4);
+		AlgorithmType maxx2 = AlgorithmMax(x3, x4);
+		AlgorithmType maxy2 = AlgorithmMax(y3, y4);
 
 
 
