@@ -1,4 +1,4 @@
-//#include "stdafx.h"
+#include "stdafx.h"
 #include "Algorithm.h"
 #include <math.h>
 #define ZeroNumber(a) (fabs(a)<1e-6)
@@ -179,59 +179,6 @@ namespace Algorithm
 		return false;
 	}
 
-	bool SegmentAcrossPoint(AlgorithmType * x, AlgorithmType * y)
-	{
-		AlgorithmType x1 = x[0];//s1
-		AlgorithmType y1 = y[0];
-
-		AlgorithmType x2 = x[1];
-		AlgorithmType y2 = y[1];
-
-
-
-		AlgorithmType x3 = x[2];//s2
-		AlgorithmType y3 = y[2];
-
-		AlgorithmType x4 = x[3];
-		AlgorithmType y4 = y[3];
-
-		intersect(x, y);
-
-		return false;
-	}
-
-	bool intersect(AlgorithmType * x, AlgorithmType * y)
-	{
-		AlgorithmType x1 = x[0];//s1
-		AlgorithmType y1 = y[0];
-
-		AlgorithmType x2 = x[1];
-		AlgorithmType y2 = y[1];
-
-		AlgorithmType minx1 = AlgorithmMin(x1, x2);
-		AlgorithmType miny1 = AlgorithmMin(y1, y2);
-
-		AlgorithmType maxx1 = AlgorithmMax(x1, x2);
-		AlgorithmType maxy1 = AlgorithmMax(y1, y2);
-
-
-		AlgorithmType x3 = x[2];//s2
-		AlgorithmType y3 = y[2];
-
-		AlgorithmType x4 = x[3];
-		AlgorithmType y4 = y[3];
-
-
-		AlgorithmType minx2 = AlgorithmMin(x3, x4);
-		AlgorithmType miny2 = AlgorithmMin(y3, y4);
-
-		AlgorithmType maxx2 = AlgorithmMax(x3, x4);
-		AlgorithmType maxy2 = AlgorithmMax(y3, y4);
-
-
-
-	}
-
 	Rect2d PointToRect(Vector2D p1, Vector2D p2)
 	{
 		Rect2d r(p1,p2);
@@ -240,4 +187,101 @@ namespace Algorithm
 		return r;
 	}
 
+}
+
+
+namespace AlgorithmPoint
+{
+	const int N = 100010;
+	int mark[N];
+	struct stline
+	{
+		Point a, b;
+	} line1, line2, p[N];
+
+	int dblcmp(float a, float b)
+	{
+		if (fabs(a - b) <= 1E-6) return 0;
+		if (a>b) return 1;
+		else return -1;
+	}
+	//***************点积判点是否在线段上***************
+	float dot(float x1, float y1, float x2, float y2) //点积
+	{
+		return x1*x2 + y1*y2;
+	}
+
+	int point_on_line(Point a, Point b, Point c) //求a点是不是在线段bc上，>0不在，=0与端点重合，<0在。
+	{
+		return dblcmp(dot(b.x - a.x, b.y - a.y, c.x - a.x, c.y - a.y), 0);
+	}
+	//**************************************************
+	float cross(float x1, float y1, float x2, float y2)
+	{
+		return x1*y2 - x2*y1;
+	}
+	float ab_cross_ac(Point a, Point b, Point c) //ab与ac的叉积
+	{
+		return cross(b.x - a.x, b.y - a.y, c.x - a.x, c.y - a.y);
+	}
+	int ab_cross_cd(Point a, Point b, Point c, Point d, Point & acorss) //求ab是否与cd相交，交点为p。1规范相交，0交点是一线段的端点，-1不相交。
+	{
+		float s1, s2, s3, s4;
+		int d1, d2, d3, d4;
+		Point p;
+		d1 = dblcmp(s1 = ab_cross_ac(a, b, c), 0);
+		d2 = dblcmp(s2 = ab_cross_ac(a, b, d), 0);
+		d3 = dblcmp(s3 = ab_cross_ac(c, d, a), 0);
+		d4 = dblcmp(s4 = ab_cross_ac(c, d, b), 0);
+
+		//如果规范相交则求交点
+		if ((d1^d2) == -2 && (d3^d4) == -2)
+		{
+			p.x = (c.x*s2 - d.x*s1) / (s2 - s1);
+			p.y = (c.y*s2 - d.y*s1) / (s2 - s1);
+			acorss = p;
+			return 1;
+		}
+
+		//如果不规范相交
+		if (d1 == 0 && point_on_line(c, a, b) <= 0)
+		{
+			p = c;
+			acorss = p;
+			return 0;
+		}
+		if (d2 == 0 && point_on_line(d, a, b) <= 0)
+		{
+			p = d;
+			acorss = p;
+			return 0;
+		}
+		if (d3 == 0 && point_on_line(a, c, d) <= 0)
+		{
+			p = a;
+			acorss = p;
+			return 0;
+		}
+		if (d4 == 0 && point_on_line(b, c, d) <= 0)
+		{
+			p = b;
+			acorss = p;
+			return 0;
+		}
+		//如果不相交
+		return -1;
+	}
+
+}
+
+bool ab_cross_cd(AlgorithmPoint::Point & a, AlgorithmPoint::Point & b, AlgorithmPoint::Point & c, AlgorithmPoint::Point & d, AlgorithmPoint::Point & P)
+{
+	AlgorithmPoint::Point  t;
+
+	if (AlgorithmPoint::ab_cross_cd(a, b, c, d, t) >= 0)
+	{
+		P = t;
+		return true;
+	}
+	return false;
 }

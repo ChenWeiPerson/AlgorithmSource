@@ -224,20 +224,26 @@ namespace Algorithm
 	// Parameter: Vector2D p2
 	//************************************
 	Rect2d PointToRect(Vector2D p1, Vector2D p2);
-
-
-	//************************************
-	// Method:    线段相交，元素数量为4
-	// FullName:  Algorithm::SegmentAcrossPoint
-	// Access:    public 
-	// Returns:   bool
-	// Qualifier:
-	// Parameter: AlgorithmType * x1
-	// Parameter: AlgorithmType * y1
-	//************************************
-	bool SegmentAcrossPoint(AlgorithmType * x, AlgorithmType * y);
-	
-	bool intersect(AlgorithmType * x, AlgorithmType * y);
 };
+
+
+
+
+namespace AlgorithmPoint
+{
+	struct Point
+	{
+		Point(float a, float b)
+			:x(a),y(b)
+		{
+
+		}
+		Point()
+		{}
+		float x, y;
+	};
+}
+
+bool ab_cross_cd(AlgorithmPoint::Point & a, AlgorithmPoint::Point & b, AlgorithmPoint::Point & c, AlgorithmPoint::Point & d, AlgorithmPoint::Point & P);
 #endif // Algorithm_h__
 
