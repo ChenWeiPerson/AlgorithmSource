@@ -245,5 +245,6 @@ namespace AlgorithmPoint
 }
 
 bool ab_cross_cd(AlgorithmPoint::Point & a, AlgorithmPoint::Point & b, AlgorithmPoint::Point & c, AlgorithmPoint::Point & d, AlgorithmPoint::Point & P);
+void test();
 #endif // Algorithm_h__
 

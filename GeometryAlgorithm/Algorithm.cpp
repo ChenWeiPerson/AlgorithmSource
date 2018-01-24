@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "Algorithm.h"
 #include <math.h>
 #define ZeroNumber(a) (fabs(a)<1e-6)
@@ -284,4 +283,10 @@ bool ab_cross_cd(AlgorithmPoint::Point & a, AlgorithmPoint::Point & b, Algorithm
 		return true;
 	}
 	return false;
+}
+
+void test()
+{
+	float as = AlgorithmPoint::cross(1, 2, 4, 5);
+	int a = 0;
 }

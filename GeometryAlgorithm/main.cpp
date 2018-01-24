@@ -4,6 +4,7 @@
 
 int main(int argc, char *argv[])
 {
+	test();
 	QApplication a(argc, argv);
 	using namespace Algorithm;
 	Line2d line1 = PointToLine(Vector2D(0,0), Vector2D(3,2));
